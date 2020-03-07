@@ -9,7 +9,7 @@ Clone the repository in your local machine
 cd PatientsAPI
 dotnet build -c Publish  .\PatientsApp.Api.csproj
 
-cd .\\bin\Release\netcoreapp2.1
+cd .\bin\Release\netcoreapp2.1
 dotnet PatientsApp.Api.dll
 ```
 
