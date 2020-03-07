@@ -57,7 +57,13 @@ namespace PatientsApp.Api.Controllers
         {
             if (pageNumber == null || pageSize == null)
             {
-                return ValidationProblem();
+                var problems = new ValidationProblemDetails
+                {
+                    Status = (int)HttpStatusCode.BadRequest,
+                    Detail = "Invalid input JSON"
+                };
+
+                return ValidationProblem(problems);
             }
 
             var pageListedPatients = await _patientRepository.GetPageListedPatients(pageNumber.Value, pageSize.Value);

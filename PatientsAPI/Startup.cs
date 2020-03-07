@@ -48,7 +48,7 @@ namespace PatientsApp.Api
             }
             else
             {
-                app.UseExceptionHandler();
+                app.UseExceptionHandler("/Error");
             }
 
             using (var serviceScope = app.ApplicationServices.CreateScope())
