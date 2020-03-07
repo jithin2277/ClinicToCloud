@@ -31,3 +31,4 @@ AutoMapper
 * Used AutoMapper to Map Entity object to the Model object 
 * I wish I had time for TDD
 * Wrote Unit tests after I was done working on both projects
+* Wish had time for Docker testing also
