@@ -16,5 +16,5 @@ dotnet PatientsApp.Api.dll
 
 ## Usage
 
-Acess the API on http://localhost:5000/api/v1/patients
+Access the API on http://localhost:5000/api/v1/patients
 
