@@ -102,16 +102,8 @@ namespace PatientsApp.Api.Tests
             {
                 var expectedPatient = expected.Patients[i];
                 var actualPatient = actualResponse.Patients[i];
-                Assert.AreEqual(expectedPatient.CreatedAt, actualPatient.CreatedAt);
-                Assert.AreEqual(expectedPatient.DOB, actualPatient.DOB);
-                Assert.AreEqual(expectedPatient.Email, actualPatient.Email);
-                Assert.AreEqual(expectedPatient.FirstName, actualPatient.FirstName);
-                Assert.AreEqual(expectedPatient.Gender, actualPatient.Gender);
-                Assert.AreEqual(expectedPatient.Id, actualPatient.Id);
-                Assert.AreEqual(expectedPatient.IsActive, actualPatient.IsActive);
-                Assert.AreEqual(expectedPatient.LastName, actualPatient.LastName);
-                Assert.AreEqual(expectedPatient.Phone, actualPatient.Phone);
-                Assert.AreEqual(expectedPatient.UpdatedAt, actualPatient.UpdatedAt);
+                
+                Assert.AreEqual(expectedPatient, actualPatient);
             }
         }
 
@@ -218,16 +210,7 @@ namespace PatientsApp.Api.Tests
             {
                 var expectedPatient = expectedPagedResponse.Patients[i];
                 var actualPatient = actualResponse.Patients[i];
-                Assert.AreEqual(expectedPatient.CreatedAt, actualPatient.CreatedAt);
-                Assert.AreEqual(expectedPatient.DOB, actualPatient.DOB);
-                Assert.AreEqual(expectedPatient.Email, actualPatient.Email);
-                Assert.AreEqual(expectedPatient.FirstName, actualPatient.FirstName);
-                Assert.AreEqual(expectedPatient.Gender, actualPatient.Gender);
-                Assert.AreEqual(expectedPatient.Id, actualPatient.Id);
-                Assert.AreEqual(expectedPatient.IsActive, actualPatient.IsActive);
-                Assert.AreEqual(expectedPatient.LastName, actualPatient.LastName);
-                Assert.AreEqual(expectedPatient.Phone, actualPatient.Phone);
-                Assert.AreEqual(expectedPatient.UpdatedAt, actualPatient.UpdatedAt);
+                Assert.AreEqual(expectedPatient, actualPatient);
             }
         }
 
