@@ -4,6 +4,7 @@
 
 Clone the repository in your local machine
 
+Run the following commands
 
 ```bash
 cd PatientsAPI
