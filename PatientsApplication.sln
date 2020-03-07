@@ -9,9 +9,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientsApp.Data", "Patient
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{D28D98C1-BE0F-4493-A649-F28C6CF4277E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientsApp.Data.Tests", "PatientsApp.Data.Tests\PatientsApp.Data.Tests.csproj", "{6C01C566-82AA-4354-B9CC-4A77FA00A15B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientsApp.Data.Tests", "PatientsApp.Data.Tests\PatientsApp.Data.Tests.csproj", "{6C01C566-82AA-4354-B9CC-4A77FA00A15B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PatientsApp.Api.Tests", "PatientsApp.Api.Tests\PatientsApp.Api.Tests.csproj", "{37392DE1-CB5C-44B6-AF0C-A894E8096718}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PatientsApp.Api.Tests", "PatientsApp.Api.Tests\PatientsApp.Api.Tests.csproj", "{37392DE1-CB5C-44B6-AF0C-A894E8096718}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{AE426BD6-8BEB-4D88-AE64-5AC5D814AC45}"
+	ProjectSection(SolutionItems) = preProject
+		.dockerignore = .dockerignore
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
