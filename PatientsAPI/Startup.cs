@@ -32,7 +32,7 @@ namespace PatientsApp.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddDbContext<PatientsContext>(opt => opt.UseInMemoryDatabase(databaseName: "PatientsDb"));
+            services.AddDbContext<PatientsDbContext>(opt => opt.UseInMemoryDatabase(databaseName: "PatientsDb"));
 
             services.AddScoped<IPatientRepository, PatientRepository>();
 

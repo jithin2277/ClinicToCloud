@@ -20,46 +20,46 @@ namespace PatientsApp.Data
 
     public class PatientRepository : IPatientRepository
     {
-        private readonly PatientsContext _patientsContext;
+        private readonly PatientsDbContext _patientsDbContext;
 
-        public PatientRepository(PatientsContext patientsContext) 
-            => _patientsContext = patientsContext ?? throw new ArgumentNullException("patientsContext");
+        public PatientRepository(PatientsDbContext patientsDbContext) 
+            => _patientsDbContext = patientsDbContext ?? throw new ArgumentNullException("patientsDbContext");
 
         public async Task<PatientEntity> GetPatientById(Guid id)
         {
-            return await _patientsContext.Patients.FindAsync(id).ConfigureAwait(false);
+            return await _patientsDbContext.Patients.FindAsync(id).ConfigureAwait(false);
         }
 
         public async Task<IList<PatientEntity>> GetPatients()
         {
-            return await _patientsContext.Patients.ToListAsync().ConfigureAwait(false);
+            return await _patientsDbContext.Patients.ToListAsync().ConfigureAwait(false);
         }
 
         public async Task<PagedList<PatientEntity>> GetPageListedPatients(int pageNumber = 1, int pageSize = 10)
         {
-            var patients = _patientsContext.Patients.AsNoTracking();
+            var patients = _patientsDbContext.Patients.AsNoTracking();
 
             return await PagedList<PatientEntity>.CreateAsync(patients, pageNumber, pageSize).ConfigureAwait(false);
         }
 
         public async Task<PatientEntity> AddPatient(PatientEntity patient)
         {
-            _ = await _patientsContext.Patients.AddAsync(patient).ConfigureAwait(false);
-            _ = await _patientsContext.SaveChangesAsync().ConfigureAwait(false);
+            _ = await _patientsDbContext.Patients.AddAsync(patient).ConfigureAwait(false);
+            _ = await _patientsDbContext.SaveChangesAsync().ConfigureAwait(false);
 
             return await GetPatientById(patient.Id);
         }
 
         public async Task<int> AddPatients(IList<PatientEntity> patients)
         {
-            await _patientsContext.Patients.AddRangeAsync(patients).ConfigureAwait(false);
-            return await _patientsContext.SaveChangesAsync().ConfigureAwait(false);
+            await _patientsDbContext.Patients.AddRangeAsync(patients).ConfigureAwait(false);
+            return await _patientsDbContext.SaveChangesAsync().ConfigureAwait(false);
         }
 
         public async Task<PatientEntity> UpdatePatient(PatientEntity patient)
         {
-            _ = _patientsContext.Patients.Update(patient);
-            _ = await _patientsContext.SaveChangesAsync().ConfigureAwait(false);
+            _ = _patientsDbContext.Patients.Update(patient);
+            _ = await _patientsDbContext.SaveChangesAsync().ConfigureAwait(false);
 
             return await GetPatientById(patient.Id);
         }

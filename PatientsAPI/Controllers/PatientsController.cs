@@ -33,6 +33,22 @@ namespace PatientsApp.Api.Controllers
             return Ok(patientResponse);
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<PatientResponse>> Get(Guid id)
+        {
+            var patientEntity = await _patientRepository.GetPatientById(id);
+            if (patientEntity != null)
+            {
+                var patientResponse = new PatientResponse
+                {
+                    Patients = new List<Patient>() { _mapper.Map<Patient>(patientEntity) }
+                };
+
+                return Ok(patientResponse);
+            }
+            return NotFound();
+        }
+
         [HttpGet]
         [Route("paged")]
         public async Task<ActionResult<PagedResponse>> GetPaged([FromQuery] int? pageNumber, [FromQuery] int? pageSize)
@@ -60,45 +76,17 @@ namespace PatientsApp.Api.Controllers
 
             return Ok(pageResponse);
         }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PatientResponse>> Get(Guid id)
-        {
-            var patientEntity = await _patientRepository.GetPatientById(id);
-            if (patientEntity != null)
-            {
-                var patientResponse = new PatientResponse
-                {
-                    Patients = new List<Patient>() { _mapper.Map<Patient>(patientEntity) }
-                };
-
-                return Ok(patientResponse);
-            }
-            return NotFound();
-        }
-
+        
         [HttpPost]
         public async Task<ActionResult<Patient>> Post([FromBody] Patient patientRecord)
         {
             if (Utilities.Validations.IsValidPatient(patientRecord))
             {
                 var newPatientId = Guid.NewGuid();
-                var patientEntity = await _patientRepository.AddPatient(new PatientEntity
-                {
-                    CreatedAt = DateTime.UtcNow,
-                    DOB = patientRecord.DOB,
-                    Email = patientRecord.Email,
-                    FirstName = patientRecord.FirstName,
-                    Gender = patientRecord.Gender,
-                    Id = newPatientId,
-                    IsActive = patientRecord.IsActive.Value,
-                    LastName = patientRecord.LastName,
-                    Phone = patientRecord.Phone,
-                    UpdatedAt = patientRecord.UpdatedAt
-                });
-                return Created(
-                    $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}{HttpContext.Request.Path}/{newPatientId}",
-                    _mapper.Map<Patient>(patientEntity));
+                var patientEntity = await _patientRepository.AddPatient(_mapper.Map<PatientEntity>(patientRecord));
+                var createdAt = $"api/v1/patients/{newPatientId}";
+                
+                return Created(createdAt, _mapper.Map<Patient>(patientEntity));
             }
 
             return ValidationProblem();
@@ -110,17 +98,21 @@ namespace PatientsApp.Api.Controllers
             if (Utilities.Validations.IsValidPatient(patientRecord))
             {
                 var patientEntity = await _patientRepository.GetPatientById(id);
+                if (patientEntity != null)
+                {
+                    patientEntity.DOB = patientRecord.DOB;
+                    patientEntity.Email = patientRecord.Email;
+                    patientEntity.FirstName = patientRecord.FirstName;
+                    patientEntity.Gender = patientRecord.Gender;
+                    patientEntity.IsActive = patientRecord.IsActive.Value;
+                    patientEntity.LastName = patientRecord.LastName;
+                    patientEntity.Phone = patientRecord.Phone;
+                    patientEntity.UpdatedAt = DateTime.UtcNow;
 
-                patientEntity.DOB = patientRecord.DOB;
-                patientEntity.Email = patientRecord.Email;
-                patientEntity.FirstName = patientRecord.FirstName;
-                patientEntity.Gender = patientRecord.Gender;
-                patientEntity.IsActive = patientRecord.IsActive.Value;
-                patientEntity.LastName = patientRecord.LastName;
-                patientEntity.Phone = patientRecord.Phone;
-                patientEntity.UpdatedAt = DateTime.UtcNow;
+                    return Ok(_mapper.Map<Patient>(await _patientRepository.UpdatePatient(patientEntity)));
+                }
 
-                return Ok(_mapper.Map<Patient>(await _patientRepository.UpdatePatient(patientEntity)));
+                return NotFound();
             }
 
             return ValidationProblem();

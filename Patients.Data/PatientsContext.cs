@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace PatientsApp.Data
 {
-    public class PatientsContext : DbContext
+    public class PatientsDbContext : DbContext
     {
-        public PatientsContext(DbContextOptions<PatientsContext> options)
+        public PatientsDbContext(DbContextOptions<PatientsDbContext> options)
             : base(options)
         { }
 

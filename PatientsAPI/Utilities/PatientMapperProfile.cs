@@ -13,6 +13,8 @@ namespace PatientsApp.Api.Utilities
         public PatientMapperProfile()
         {
             CreateMap<PatientEntity, Patient>();
+
+            CreateMap<Patient, PatientEntity>();
         }
     }
 }

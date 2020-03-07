@@ -8,7 +8,7 @@ namespace  PatientsApp.Api.Models
     public class PagedResponse
     {
         public PageMetadata Metadata { get; set; }
-        public IEnumerable<Patient> Patients { get; set; }
+        public IList<Patient> Patients { get; set; }
     }
 
     public class PageMetadata
