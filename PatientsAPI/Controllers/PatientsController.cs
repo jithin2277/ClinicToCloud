@@ -47,7 +47,8 @@ namespace PatientsApp.Api.Controllers
 
                 return Ok(patientResponse);
             }
-            return NotFound();
+            
+            return NotFound("No such patient exists");
         }
 
         [HttpGet]
@@ -123,7 +124,7 @@ namespace PatientsApp.Api.Controllers
                     return Ok(_mapper.Map<Patient>(await _patientRepository.UpdatePatient(patientEntity)));
                 }
 
-                return NotFound();
+                return NotFound("No such patient exists");
             }
 
             var problems = new ValidationProblemDetails
