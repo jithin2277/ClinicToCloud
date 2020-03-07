@@ -26,8 +26,8 @@ AutoMapper
 
 ## Development Steps
 
-Started working on the Data project and the repository file first
-Then worked on the API project
-Used AutoMapper to Map Entity object to the Model object 
-I wish I had time for TDD
-Wrote Unit tests after I was done working on both projects
+* Started working on the Data project and the repository file first
+* Then worked on the API project
+* Used AutoMapper to Map Entity object to the Model object 
+* I wish I had time for TDD
+* Wrote Unit tests after I was done working on both projects
