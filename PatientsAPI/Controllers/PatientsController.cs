@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -83,13 +84,23 @@ namespace PatientsApp.Api.Controllers
             if (Utilities.Validations.IsValidPatient(patientRecord))
             {
                 var newPatientId = Guid.NewGuid();
-                var patientEntity = await _patientRepository.AddPatient(_mapper.Map<PatientEntity>(patientRecord));
-                var createdAt = $"api/v1/patients/{newPatientId}";
+                var newPatient = _mapper.Map<PatientEntity>(patientRecord);
+                newPatient.Id = newPatientId;
+                newPatient.UpdatedAt = DateTime.UtcNow;
+                newPatient.CreatedAt = DateTime.UtcNow;
+
+                var patientEntity = await _patientRepository.AddPatient(newPatient);
+                var createdAt = $"api/v1/patients/{patientEntity.Id}";
                 
                 return Created(createdAt, _mapper.Map<Patient>(patientEntity));
             }
-
-            return ValidationProblem();
+            var problems = new ValidationProblemDetails
+            {
+                Status = (int)HttpStatusCode.BadRequest,
+                Detail = "Invalid input JSON"                
+            };
+            
+            return ValidationProblem(problems);
         }
 
         [HttpPut("{id}")]
@@ -115,7 +126,12 @@ namespace PatientsApp.Api.Controllers
                 return NotFound();
             }
 
-            return ValidationProblem();
+            var problems = new ValidationProblemDetails
+            {
+                Status = (int)HttpStatusCode.BadRequest,
+                Detail = "Invalid input JSON"
+            };
+            return ValidationProblem(problems);
         }
     }
 }
