@@ -20,9 +20,9 @@ Access the API on http://localhost:5000/api/v1/patients
 
 ## Technology Stack
 
-ASP.NET Core 2.1
-EF Core 2.1.14
-AutoMapper
+* ASP.NET Core 2.1
+* EF Core 2.1.14
+* AutoMapper
 
 ## Development Steps
 
